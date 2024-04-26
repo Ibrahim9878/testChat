@@ -5,39 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="AzeriChat" Height="450" Width="350">
-    <Grid>
-        <Grid Grid.Column="0" Background="LightSkyBlue">
-            <Grid.RowDefinitions>
-                <RowDefinition Height=".2*"/>
-                <RowDefinition/>
-                <RowDefinition Height=".1*"/>
-            </Grid.RowDefinitions>
-            <Image Source="/Images/logo.png" Margin="5" Height="30" Width="30" HorizontalAlignment="Left"/>
-            <StackPanel Grid.Row="0" HorizontalAlignment="Right" Width="300" Orientation="Horizontal">
-                <Button Width="20" Height="20" Margin="5" BorderBrush="Transparent">
-                    <Button.Background>
-                        <ImageBrush ImageSource="/Images/sort.png"/>
-                    </Button.Background>
-                </Button>
-                <Button Width="20" Height="20" Margin="5" BorderBrush="Transparent">
-                    <Button.Background>
-                        <ImageBrush ImageSource="Images/search.png"/>
-                    </Button.Background>
-                </Button>
-                <TextBox Margin="5" Width="190" Height="30"/>
+        Title="AzeriChat" Height="470" Width="375">
+    <Grid Background="LightSkyBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".2*"/>
+            <RowDefinition/>
+            <RowDefinition Height=".1*"/>
+        </Grid.RowDefinitions>
 
-            </StackPanel>
-            <Grid Grid.Row="1">
-                <ListView x:Name="list" ItemsSource="{Binding Messages}">
-                </ListView>
-            </Grid>
-            <Button HorizontalAlignment="Right" Width="20" Height="20" Margin="5" BorderBrush="Transparent">
+        <StackPanel Grid.Row="0" HorizontalAlignment="Left"  Orientation="Horizontal">
+            <Image Source="/Images/logo.png" Margin="5" Height="30" Width="30" HorizontalAlignment="Left"/>
+            <Button Width="20" Height="20" Margin="5" BorderBrush="Transparent">
                 <Button.Background>
-                    <ImageBrush ImageSource="Images/more.png"/>
+                    <ImageBrush ImageSource="/Images/sort.png"/>
                 </Button.Background>
             </Button>
-        </Grid>
+            <Button Width="20" Height="20" Margin="5" BorderBrush="Transparent" Click="Button_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Images/search.png"/>
+                </Button.Background>
+            </Button>
+            <TextBox Name="SearchBox" Margin="5" Width="220" Height="30" FontSize="22"/>
+        </StackPanel>
+        <ListView Grid.Row="1" Name="list" ItemsSource="{Binding Messages}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="325"  Width="350" >
+        </ListView>
+        <StackPanel Orientation="Horizontal" Grid.Row="3">
+            <TextBox x:Name="SendText" Width="300" Margin="3" FontSize="15"/>
+            <Button Name="SendButton" Width="50" Background="Orange" Margin="3" Content="Send" Click="SendButton_Click">
+            </Button>
+        </StackPanel>
 
     </Grid>
+
 </Window>

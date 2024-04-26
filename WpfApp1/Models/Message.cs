@@ -8,16 +8,15 @@ public class Message : INotifyPropertyChanged
 {
     private DateTime date1;
     private string title;
-    private string image;
+    public string date2; 
 
     DateTime date { get => date1; set { date1 = value; OnProperty(); } }
     public string Title { get => title; set { title = value;OnProperty(); } }
-    public string Image { get => image; set{ image = value; OnProperty(); }}
-    public Message(string title, string image)
+    public Message(string title)
     {
         this.date = DateTime.Now;
         Title = title;
-        Image = image;
+        date2 = date1.ToShortTimeString();
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -27,7 +26,7 @@ public class Message : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(name)));
     }
     public override string ToString()
-    {
-        return $"{Title}  {date.TimeOfDay}";
+    { 
+        return $"{date2}                                                           {Title}";
     }
 }

@@ -1,28 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using WpfApp2.Models;
 
-namespace WpfApp1
+namespace WpfApp1;
+
+public partial class MainWindow : Window,INotifyPropertyChanged
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    private ObservableCollection<Message>? messages;
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public ObservableCollection<Message>? Messages { get => messages; set { messages = value; OnProperty(); } }
+    public MainWindow()
     {
-        public MainWindow()
+        InitializeComponent();
+        Messages = new ObservableCollection<Message>()
         {
-            InitializeComponent();
+            new("Salam"),
+            new("Ehe"),
+            new("Aha"),
+        };
+        DataContext = this;
+    }
+    public void OnProperty([CallerMemberName] string? name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(name)));
+    }
+
+    private void SendButton_Click(object sender, RoutedEventArgs e)
+    {
+        if(SendText.Text != string.Empty)
+        {
+            Messages?.Add(new Message(SendText.Text));
+            SendText.Text = null;
         }
+    }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        foreach (Message item in Messages)
+        {
+            if (item.Title == SearchBox.Text)
+            { 
+                MessageBox.Show(item.ToString());
+                return;            
+            }
+        }
+        MessageBox.Show("Tapilmadi");
+        SearchBox.Text = null;
+        
     }
 }
